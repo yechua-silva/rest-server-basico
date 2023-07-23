@@ -7,7 +7,10 @@ const usuariosGet = (req = request, res = response) => {
 
     res.json({
         msg: 'get API - desde el controlador',
-
+        nombre,
+        apikey,
+        limit,
+        page
     })
 }
 
