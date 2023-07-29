@@ -1,12 +1,16 @@
 const express = require('express');
 const cors = require('cors');
+const { dbConnection } = require('../database/config');
 
 class Server {
 
-    constructor() {
+    constructor() { // El construcctor es el que se manda a llamar cuando se crea la instancia
         this.app = express();
-        this.port = process.env.PORT || 3000;
+        this.port = process.env.PORT;
         this.usuariosPath = '/api/usuarios';
+
+        // Coneccion con base de datos
+        this.conectarDB();
 
         // Middleware - funciones que le añaden funcionalidad al web server
         this.middleware();
@@ -14,6 +18,10 @@ class Server {
         // Rutas de mi aplicacion
 
         this.routes();
+    }
+
+    async conectarDB() {
+        await dbConnection()
     }
 
     middleware() {
