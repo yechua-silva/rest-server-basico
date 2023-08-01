@@ -2,7 +2,7 @@
 const { Router, request } = require('express');
 const { check } = require('express-validator');
 
-const { login } = require('../controllers/authControlles');
+const { login, loginGoogle } = require('../controllers/authControlles');
 const { validarCampos } = require('../middleware/validar-campo');
 
 // Crear instacia del router
@@ -15,6 +15,12 @@ router.post('/login',[
     
     validarCampos
 ], login )
+
+// Ruta para acceder con google
+router.post('/google', [
+    check('id_token', 'Token de google es necesario').not().isEmpty(), // no tiene que estar vacio
+    validarCampos
+], loginGoogle )
 
 
 module.exports = router;

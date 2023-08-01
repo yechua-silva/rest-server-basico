@@ -3,9 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso Denegado</title>
+    <title>Google Sign-in</title>
 </head>
 <body>
-    <h1>Acceso Denegado</h1>
+    <h1>Google Sign-in</h1>
+    <hr>
+
+    <div id="g_id_onload"
+         data-client_id="253166052491-qfqkuthcv0o188sd4mo8pvae4ji6mo2q.apps.googleusercontent.com"
+         data-auto_prompt="false"
+         data-callback="handleCredentialResponse">
+    </div>
+    <div class="g_id_signin"
+         data-type="standard"
+         data-size="large"
+         data-theme="outline"
+         data-text="sign_in_with"
+         data-shape="rectangular"
+         data-logo_alignment="left">
+    </div>
+
+    <buttom id="google_signout">
+        Signout
+    </buttom>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        function handleCredentialResponse(response) {
+            // Google toke : ID_TOKE
+        //    console.log('id_token', response.credential);
+
+            const body = {id_token: response.credential};
+
+            fetch('http://localhost:3000/api/auth/google', {
+                method: 'POST', // por defecto el fetch es peticion get
+                headers: {
+                    'Content-Type': 'application/json' // EL tipo de documento que mandamos
+                },
+                body: JSON.stringify(body) // Body serializado - lo convierte en JSON
+            })
+                .then( resp => resp.json() )
+                .then( resp => {
+                    localStorage.setItem('email', resp.usuario.correo )
+                    console.log(resp);
+                })
+                .catch( console.warn );
+        }
+
+        const botom = document.getElementById('google_signout');
+
+        // cErrar sesion
+        botom.onclick = () => {
+            console.log( google.accounts.id);
+            google.accounts.id.disableAutoSelect();
+
+            google.accounts.id.revoke( localStorage.getItem( 'email' ), done => {
+                localStorage.clear();
+                location.reload();
+            })
+        };
+      </script>
+
 </body>
 </html>

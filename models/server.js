@@ -38,7 +38,7 @@ class Server {
 
     routes() {
         // Rutas de autorizacion y login
-        this.app.use( this.authPath, require('../routes/auth')) // Aca se usa el export de el router, que no son mas que lagica antes de las peticiones pertinente
+        this.app.use( this.authPath, require('../routes/auth')) // Aca se usa el import de el router, que no son mas que lagica antes de las peticiones pertinente
         // Rutas usuarios con CRUD
         this.app.use( this.usuariosPath, require('../routes/user'))
     }
