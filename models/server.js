@@ -8,6 +8,7 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
         this.usuariosPath = '/api/usuarios';
+        this.authPath = '/api/auth';
 
         // Coneccion con base de datos
         this.conectarDB();
@@ -36,6 +37,9 @@ class Server {
     }
 
     routes() {
+        // Rutas de autorizacion y login
+        this.app.use( this.authPath, require('../routes/auth')) // Aca se usa el export de el router, que no son mas que lagica antes de las peticiones pertinente
+        // Rutas usuarios con CRUD
         this.app.use( this.usuariosPath, require('../routes/user'))
     }
 

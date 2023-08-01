@@ -45,7 +45,9 @@ const UsuarioSchema = Schema({
 
 UsuarioSchema.methods.toJSON = function() {
     // Extaer de la instacia de Usuario el __v y el password y se crea la intancioa usuario sin esos datos - Esto sirve en el caso en que la respuesta sea el usuario, no se mandara el password del mismo 
-    const {__v, password, ...usuario } = this.toObject();
+    const {__v, password,_id, ...usuario } = this.toObject(); 
+    usuario.uid = _id; 
+
     return usuario;
 };    
 

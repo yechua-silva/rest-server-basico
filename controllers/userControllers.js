@@ -67,8 +67,8 @@ const usuariosPatch = (req, res = response) => {
 const usuariosDelete = async (req, res = response) => {
     const { id } = req.params;
 
-    // Borrar fisicamente - no recomendado
-    // const usuario = await Usuario.findByIdAndDelete(id);
+    // Obtener usuario autenticado
+    // const usuarioAutenticado = req.usuario
 
     // Cambiar estado del usuario - estado en false significa que esta borrado
     const usuario = await Usuario.findByIdAndUpdate( id, { estado: false }); // Buscas por el id, y cambia el estado a false
