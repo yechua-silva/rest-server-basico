@@ -49,7 +49,7 @@ const login =  async (req = request, res = response) => {
 };
 
 const loginGoogle = async (req = request, res = response) => {
-    const { id_token } = req.body;
+    const { id_token } = req.body; // Id que viene de la cuenta de google
 
     // Google verify
     try {

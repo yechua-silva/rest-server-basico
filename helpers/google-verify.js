@@ -11,8 +11,10 @@ async function googleVerify( token = '' ) {
       // Or, if multiple clients access the backend:
       //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
   });
+  // Extraer los datos que usare de la cta de Google
   const {name, email, picture} = ticket.getPayload();
 
+  // Retorno datos con los nombres que usare
   return {
     nombre: name,
     correo: email,
