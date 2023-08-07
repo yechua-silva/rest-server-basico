@@ -45,7 +45,6 @@
                 .then( resp => resp.json() )
                 .then( resp => {
                     localStorage.setItem('email', resp.usuario.correo )
-                    console.log(resp);
                 })
                 .catch( console.warn );
         }
