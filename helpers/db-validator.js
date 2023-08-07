@@ -1,5 +1,38 @@
-const Role = require('../models/role')
-const Usuario = require('../models/usuario')
+const { request } = require('express')
+const { 
+    Producto, 
+    Categoria, 
+    Usuario, 
+    Role 
+} = require('../models')
+
+
+
+const existeCategoria = async ( id ) => {
+    // Verificar si el correo existe
+    const existeCategoria = await Categoria.findById( id ) 
+    if ( !existeCategoria ) { // Si no existe lo anula para que entre y mande el error
+        throw new Error(`El id: ${id}, no existe`)
+    } 
+
+    if ( existeCategoria.estado == false ) { 
+        throw new Error(`La categoria: ${existeCategoria.nombre}, fue eliminada`)
+    }
+}
+
+const existeProducto = async ( id ) => {
+    // Verificar si categoria existe
+    const productoDB = await Producto.findById( id );
+    if ( !productoDB ) {
+        throw new Error(`El id: ${id}, no existe`)
+    }
+
+    if ( productoDB.estado == false ) {
+        throw new Error(`El producto: ${productoDB.nombre}, fue eliminado`)
+    }
+}
+
+
 
 
 const esRolValido = async ( rol = '' ) => {
@@ -42,5 +75,7 @@ module.exports = {
     esRolValido,
     existeEmail,
     existeUsuarioPorId,
-    sonNumeros
+    sonNumeros,
+    existeCategoria,
+    existeProducto
 }

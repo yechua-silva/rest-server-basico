@@ -7,8 +7,13 @@ class Server {
     constructor() { // El construcctor es el que se manda a llamar cuando se crea la instancia
         this.app = express();
         this.port = process.env.PORT;
-        this.usuariosPath = '/api/usuarios';
-        this.authPath = '/api/auth';
+        this.paths = {
+            auth: '/api/auth',
+            buscar: '/api/buscar',
+            categorias: '/api/categorias',
+            productos: '/api/productos',
+            usuarios: '/api/usuarios'
+        }
 
         // Coneccion con base de datos
         this.conectarDB();
@@ -38,9 +43,21 @@ class Server {
 
     routes() {
         // Rutas de autorizacion y login
-        this.app.use( this.authPath, require('../routes/auth')) // Aca se usa el import de el router, que no son mas que lagica antes de las peticiones pertinente
+        this.app.use( this.paths.auth, require('../routes/auth')) // Aca se usa el import de el router, que no son mas que lagica antes de las peticiones pertinente
+        
+        // Rutas categorias
+        this.app.use( this.paths.categorias, require('../routes/categorias'))
+
+        // Rutas productos
+        this.app.use( this.paths.productos, require('../routes/productos'))
+
+        
         // Rutas usuarios con CRUD
-        this.app.use( this.usuariosPath, require('../routes/user'))
+        this.app.use( this.paths.usuarios, require('../routes/user'))
+
+        // Rutas para la busqueda
+        this.app.use( this.paths.buscar, require('../routes/buscar'))
+
     }
 
     listen() {
