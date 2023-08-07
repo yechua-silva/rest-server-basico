@@ -35,7 +35,7 @@
 
             const body = {id_token: response.credential};
 
-            fetch('http://localhost:3000/api/auth/google', {
+            fetch('https://rest-server-a4jn.onrender.com/api/auth/google', {
                 method: 'POST', // por defecto el fetch es peticion get
                 headers: {
                     'Content-Type': 'application/json' // EL tipo de documento que mandamos
