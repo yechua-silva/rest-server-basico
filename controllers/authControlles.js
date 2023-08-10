@@ -62,7 +62,7 @@ const loginGoogle = async (req = request, res = response) => {
             const data = {
                 nombre,
                 correo,
-                password: '',
+                password: '123456',
                 img,
                 rol: 'USER_ROLE',
                 google: true
