@@ -83,12 +83,12 @@ const buscarProductos = async ( termino = '', res = response ) => {
         }
         
         // Buscar por id - categoria
-        const productosPorCategoria = await Producto.find({ categoria: termino }).populate( 'categoria', 'nombre' ).populate( 'usuario', 'nombre' );
+        const categoriaId = await Producto.find({ categoria: termino }).populate( 'categoria', 'nombre' ).populate( 'usuario', 'nombre' );
 
-        if ( productosPorCategoria ) {
+        if ( categoriaId ) {
             const total = await Producto.count({ categoria: termino }).populate( 'categoria', 'nombre' ).populate( 'usuario', 'nombre' );
             return res.json({
-                results: total, productosPorCategoria
+                results: total, categoriaId
             })
         }
     }

@@ -34,8 +34,9 @@
         //    console.log('id_token', response.credential);
 
             const body = {id_token: response.credential};
+            console.log(body);
 
-            fetch('https://rest-server-a4jn.onrender.com/api/auth/google', {
+            fetch('http://localhost:3000/api/auth/google', {
                 method: 'POST', // por defecto el fetch es peticion get
                 headers: {
                     'Content-Type': 'application/json' // EL tipo de documento que mandamos
@@ -44,7 +45,7 @@
             })
                 .then( resp => resp.json() )
                 .then( resp => {
-                    console.log( resp.usuario);
+                    console.log(resp);
                     localStorage.setItem('email', resp.usuario.correo )
                 })
                 .catch( console.warn );

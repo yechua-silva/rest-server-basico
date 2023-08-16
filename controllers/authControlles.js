@@ -49,13 +49,16 @@ const login =  async (req = request, res = response) => {
 };
 
 const loginGoogle = async (req = request, res = response) => {
-    const { id_token } = req.body; // Id que viene de la cuenta de google
+    const { id_token } = req.body;
 
     // Google verify
     try {
         const { nombre, correo, img } = await googleVerify( id_token );
+        // const respuesta = await googleVerify( id_token );
+
 
         let usuario = await Usuario.findOne({ correo });
+
 
         if ( !usuario ) {
             // Crear un usuario
@@ -69,7 +72,7 @@ const loginGoogle = async (req = request, res = response) => {
             };
 
             usuario = new Usuario( data );
-            // Guardar usuario de Google en DB
+            // // Guardar usuario de Google en DB
             await usuario.save();
         }
 
@@ -88,7 +91,7 @@ const loginGoogle = async (req = request, res = response) => {
             token
         })
     } catch (error) {
-        res.status(400).json({
+        res.status(400).json({ // error aca . supuesto
             ok: false,
             msg: 'El token no se pudo verificar'
         })
